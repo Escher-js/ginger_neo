@@ -7,8 +7,7 @@ function SortableTextFields() {
 
   useEffect(() => {
     new Sortable(listRef.current, {
-      animation: 150,
-      handle: ".my-handle",
+      animation: 150
     });
   }, []);
 
@@ -18,19 +17,16 @@ function SortableTextFields() {
         defaultValue="Item 1"
         variant="outlined"
         margin="normal"
-        InputProps={{ startAdornment: <span className="my-handle">::</span> }}
       />
       <TextField
         defaultValue="Item 2"
         variant="outlined"
         margin="normal"
-        InputProps={{ startAdornment: <span className="my-handle">::</span> }}
       />
       <TextField
         defaultValue="Item 3"
         variant="outlined"
         margin="normal"
-        InputProps={{ startAdornment: <span className="my-handle">::</span> }}
       />
     </div>
   );
