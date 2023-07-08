@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useRef } from "react";
+import { TextField } from "@mui/material";
+import Sortable from "sortablejs";
 
-function App() {
+function SortableTextFields() {
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    new Sortable(listRef.current, {
+      animation: 150,
+      handle: ".my-handle",
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div ref={listRef} style={{ display: 'flex', flexDirection: 'column' }}>
+      <TextField
+        defaultValue="Item 1"
+        variant="outlined"
+        margin="normal"
+        InputProps={{ startAdornment: <span className="my-handle">::</span> }}
+      />
+      <TextField
+        defaultValue="Item 2"
+        variant="outlined"
+        margin="normal"
+        InputProps={{ startAdornment: <span className="my-handle">::</span> }}
+      />
+      <TextField
+        defaultValue="Item 3"
+        variant="outlined"
+        margin="normal"
+        InputProps={{ startAdornment: <span className="my-handle">::</span> }}
+      />
     </div>
   );
 }
 
-export default App;
+export default SortableTextFields;
