@@ -7,9 +7,6 @@ Windows版gingerの制作ととスクラップ&ビルドを通じて整理され
 1. install、テスト実行（→see `install`）
 2. 取り組むべき開発単位を見つける（→see `issue`）
 3. 開発（→see `development`）
-    - ブランチを作成する
-    - issueにブランチを紐づける
-    - ブランチ内で実装する
 4. プルリクエスト（→see ）
 5. 2~4の繰り返し（→see ）
 
@@ -38,7 +35,8 @@ issue内の記録は各自の自由なので、なんでもメモったらよろ
 ## development
 ### 開発の基本構成
 webアプリ開発の最初のつまづきどころとして、ライブラリやフレームワークが多すぎて、全体像が見えないことがある。だが、常にトレンドは移り変わり、決定的なものが存在しないため、フレームワーク群の全体像やグルーピングを図示したものは作られていない。したがって、基本構成についても参考になるページはない。機能別フレームワークのまとめと理解について参考になるページとして、[StateofJS](https://2022.stateofjs.com/ja-JP/libraries/)がある。
-また、javascriptの実践的な知識については、[JavaScriptの概念たち](https://qiita.com/tsin1rou/items/90576b6c00b895478610)なども役に立つかもしれない。
+また、javascriptの実践的な知識については、[JavaScriptの概念たち](https://qiita.com/tsin1rou/items/90576b6c00b895478610)なども役に立つ。
+node modulesのパッケージは、webで必要なライブラリを調べる。インストールのコマンドがわからないときは[npm](https://www.npmjs.com/)のページでライブラリ名で検索する。
 
 フレームワークの組み合わせそれぞれにベストプラクティスがあり、学習の妨げになるため、本開発で使用する構成をあらかじめ決めた上で、それらのみに絞って詳述する。参考程度に、近い機能を果たす類似のフレームワークを比較対象にのせた。
 
@@ -67,7 +65,7 @@ Tips(Terminalで実行):
 
 ### 開発の流れ
 開発を開始する前にブランチを作成し、issueにブランチを紐づける。
-[githubのissueページ](https://github.com/Escher-js/ginger_neo/issues?q=is%3Aissue+is%3Aopen)から開発対象のissueを開き、右側のDevelopmentから`Create a Branch`を押して、出てきたコマンドをVSCodeのTerminalで実行する。
+[githubのissueページ](https://github.com/Escher-js/ginger_neo/issues?q=is%3Aissue+is%3Aopen)から開発対象のissueを開き、右側のDevelopmentから`Create a Branch`を押して、出てきたコマンドをVSCodeのTerminalで実行する。以降はVSCodeのSourceControlから行える。
 
 # Getting Started with Create React App
 
