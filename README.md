@@ -2,15 +2,6 @@
 Windows版gingerの制作ととスクラップ&ビルドを通じて整理された仕様をweb版に移してより広いユーザーからのフィードバックを受け取れる形にする。gingerは、分散レポジトリ型研究プロトコルGiantのためのUIである。
 このReadmeでは、基本的な開発プロセスについて記述する。
 # How to get started
-この章を読むのかかる時間はおよそ15分です。
-## 基本的な流れ：
-1. install、テスト実行（→see `install`）
-2. 取り組むべき開発単位を見つける（→see `issue`）
-3. 開発（→see `development`）
-4. プルリクエスト（→see ）
-5. 2~4の繰り返し（→see ）
-
-## install
 まずレポジトリをクローンする。
 
 ターミナル(Terminal)を開き、`zsh`または`bash`のシェルを立ち上げる（windows powershellでも可能とは思うが、のちのgit commandとの相性を考えてこの二つのどちらかを推奨する）。
@@ -23,6 +14,16 @@ Windows版gingerの制作ととスクラップ&ビルドを通じて整理され
 
 `npm start`
 
+
+この章を読むのかかる時間はおよそ15分です。
+# 実装の流れとルール
+1. install、テスト実行（→see `How to get started`）
+2. 取り組むべき開発単位を見つける（→see `issue`）
+3. 開発（→see `development`）
+4. プルリクエスト（→see ）
+5. 2~4の繰り返し
+
+## install
 を続けて実行する。`localhost:3000`でテスト実行の結果が表示されるはず。以下の`Getting Started with Create React App`も参照のこと。以降、開発中は`npm start`のみで動く。
 ## issue
 本プロジェクトは機能単位の分散開発で進める。本ページ(github)の上のIssuesタブから選ぶか、新規に作成する。各issueは機能単位に対応している。issuesを新規に作成するときは以下の点を守る。
