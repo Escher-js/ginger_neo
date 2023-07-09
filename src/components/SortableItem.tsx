@@ -10,7 +10,7 @@ interface SortableItemProps {
 const SortableItem: React.FC<SortableItemProps> = ({ order, text }) => {
     return (
         <TextField
-            defaultValue={`Order: ${order}, Text: ${text}`}
+            defaultValue={text}
             variant="outlined"
             margin="normal"
         />
