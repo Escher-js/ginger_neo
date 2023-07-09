@@ -1,7 +1,6 @@
 // App.tsx
-import React, { useEffect, useRef, useState } from "react";
-import Sortable from "sortablejs";
-import SortableItem from "./components/SortableItem";
+import React, { useEffect, useState } from "react";
+import SortableList from "./components/SortableList";
 
 interface Stack {
     order: number;
@@ -10,29 +9,14 @@ interface Stack {
 
 function App() {
     const [stacks, setStacks] = useState<Stack[]>([]);
-    const listRef = useRef<HTMLDivElement>(null);
-
-    // Load data from localStorage or fetch from stacks.json
-    useEffect(() => {
-        const savedData = localStorage.getItem('stacks');
-        if (savedData) {
-            setStacks(JSON.parse(savedData));
-        } else {
-            fetch('stacks.json')
-                .then(response => response.json())
-                .then(data => {
-                    data.sort((a: Stack, b: Stack) => a.order - b.order);
-                    setStacks(data);
-                });
-        }
-    }, []);
 
     useEffect(() => {
-        if (listRef.current) {
-            new Sortable(listRef.current, {
-                animation: 150
+        fetch('stacks.json')
+            .then(response => response.json())
+            .then(data => {
+                data.sort((a: Stack, b: Stack) => a.order - b.order);
+                setStacks(data);
             });
-        }
     }, []);
 
     const handleTextChange = (order: number, text: string) => {
@@ -44,10 +28,8 @@ function App() {
     };
 
     return (
-        <div ref={listRef} style={{ display: 'flex', flexDirection: 'column' }}>
-            {stacks.map(stack => (
-                <SortableItem key={stack.order} order={stack.order} text={stack.text} onTextChange={handleTextChange} />
-            ))}
+        <div>
+            <SortableList stacks={stacks} onTextChange={handleTextChange} />
         </div>
     );
 }

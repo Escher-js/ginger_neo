@@ -67,6 +67,7 @@ Tips(Terminalで実行):
 ### 開発の流れ
 開発を開始する前にブランチを作成し、issueにブランチを紐づける。
 [githubのissueページ](https://github.com/Escher-js/ginger_neo/issues?q=is%3Aissue+is%3Aopen)から開発対象のissueを開き、右側のDevelopmentから`Create a Branch`を押して、出てきたコマンドをVSCodeのTerminalで実行する。以降はVSCodeのSourceControlから行える。
+git pullか、git fetch
 
 # Getting Started with Create React App
 
