@@ -1,6 +1,7 @@
 // App.tsx
 import React, { useEffect, useState } from "react";
 import SortableList from "./components/SortableList";
+import BasicModal from "./components/Modal"
 
 interface Stack {
     order: number;
@@ -30,6 +31,7 @@ function App() {
     return (
         <div>
             <SortableList stacks={stacks} onTextChange={handleTextChange} />
+            <BasicModal />
         </div>
     );
 }
