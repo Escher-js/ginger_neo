@@ -8,7 +8,15 @@ const path = require('path')
 const app = express();
 const GITLAB_URL = 'https://io.gnt.place/api/v4/projects'
 
-app.use(cors({ origin: true }));
+const corsHandler = cors({
+    origin: 'http://localhost:3000',
+});
+
+app.use(cors(
+    {
+        origin: true
+    }
+));
 
 // Define the server check function
 const checkServer = async (url) => {
@@ -82,21 +90,65 @@ app.get('/getFiles/:id', async (req, res) => {
 });
 
 exports.getRepoContents = functions.https.onRequest(async (req, res) => {
-    const repoId = req.query.repoId; // GitLab repository ID
+    corsHandler(req, res, async () => {
+        const repoId = req.query.repoId; // GitLab repository ID
 
-    try {
-        const fileContentsResponses = await axios.get(`${GITLAB_URL}/${repoId}/repository/files/stacks.json?ref=main`)
+        try {
+            const fileContentsResponses = await axios.get(`${GITLAB_URL}/${repoId}/repository/files/stacks.json?ref=main`)
 
-        const content = Buffer.from(fileContentsResponses.data.content, 'base64').toString();
-        const fileContent = JSON.parse(content);
-        res.send(fileContent);
-        return;
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error occurred while fetching GitLab repository content.');
-    }
+            const content = Buffer.from(fileContentsResponses.data.content, 'base64').toString();
+            const fileContent = JSON.parse(content);
+            res.send(fileContent);
+            return;
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error occurred while fetching GitLab repository content.');
+        }
+    });
+})
+
+exports.postRepoContents = functions.https.onRequest(async (req, res) => {
+    corsHandler(req, res, async () => {
+        const gitlabToken = functions.config().gitlab.token;
+        const gitlabUrl = GITLAB_URL; // Get the GitLab URL from environment variables
+
+        const repoId = req.body.repoId; // Get GitLab repository ID from request body
+        const fileContent = req.body.fileContent; // Get file content from request body
+        const fileName = req.body.fileName; // Get file name from request body
+
+        // Input sanitization
+        if (typeof repoId !== 'string' || typeof fileContent !== 'object' || typeof fileName !== 'string') {
+            res.status(400).send('Invalid input.');
+            return;
+        }
+
+        const options = {
+            headers: {
+                'Private-Token': gitlabToken,
+            },
+        };
+
+        try {
+            const fileContentBase64 = Buffer.from(JSON.stringify(fileContent, null, 2)).toString('base64');
+
+            const postData = {
+                branch: 'main', // the name of the branch
+                content: fileContentBase64, // the content of the file
+                author_email: 'email@example.com', // the email of the author
+                author_name: 'Name', // the name of the author
+                commit_message: 'update file', // the commit message
+                encoding: 'base64', // the encoding type
+            };
+
+            // Create or update the file
+            await axios.put(`${gitlabUrl}/${repoId}/repository/files/${encodeURIComponent(fileName)}`, postData, options);
+
+            res.send('File updated successfully.');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(`Error occurred while updating GitLab repository content.${error}`);
+        }
+    });
 });
 
 exports.app = functions.https.onRequest(app);
-
-// `https://gitlab.com/api/v4/projects/${repoId}/repository/tree`は全て、`${GITLAB_URL}/${repoId}/repository/tree`にして

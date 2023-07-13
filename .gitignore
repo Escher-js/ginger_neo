@@ -7,13 +7,17 @@
 
 # testing
 /coverage
+.runtimeconfig.json
 
 # production
 /build
 
 # misc
 .DS_Store
+
+.env
 .env.local
+.env.production
 .env.development.local
 .env.test.local
 .env.production.local
